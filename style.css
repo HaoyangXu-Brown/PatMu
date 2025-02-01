@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #1a1a1a;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    color: white;
+}
+
+.instrument-selector {
+    margin: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #444;
+    color: white;
+}
+
+button.active {
+    background: #007bff;
+}
+
+.keyboard {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.key {
+    width: 60px;
+    height: 200px;
+    border: 1px solid black;
+    margin: 2px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    border-radius: 0 0 5px 5px;
+    transition: background 0.1s;
+}
+
+.key.black {
+    background: black;
+    color: white;
+    height: 120px;
+    width: 40px;
+    margin: 0 -20px;
+    z-index: 1;
+}
+
+.key.active {
+    background: #007bff;
+}
