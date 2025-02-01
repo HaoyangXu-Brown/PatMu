@@ -1,65 +1,186 @@
+:root {
+    --primary-color: #00ff00;
+    --error-color: #ff4444;
+    --background: #1a1a1a;
+}
+
 body {
     margin: 0;
+    background: var(--background);
+    font-family: 'Arial', sans-serif;
+    color: white;
+    touch-action: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #1a1a1a;
-    font-family: Arial, sans-serif;
+    z-index: 1000;
 }
 
-.container {
+.permission-box, .loading-box {
+    background: #2d2d2d;
+    padding: 2rem;
+    border-radius: 1rem;
     text-align: center;
-    color: white;
+    max-width: 500px;
+    border: 2px solid var(--primary-color);
 }
 
-.instrument-selector {
-    margin: 20px;
-}
-
-button {
-    padding: 10px 20px;
-    margin: 0 5px;
+.enable-btn {
+    background: var(--primary-color);
     border: none;
-    border-radius: 5px;
+    padding: 1rem 2rem;
+    color: var(--background);
+    font-size: 1.1rem;
     cursor: pointer;
+    border-radius: 0.5rem;
+    transition: transform 0.2s;
+    margin: 1rem 0;
+}
+
+.enable-btn:hover {
+    transform: scale(1.05);
+}
+
+.camera-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.input_video, .output_canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(-1);
+    object-fit: cover;
+}
+
+.gesture-controls {
+    position: fixed;
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4rem;
+    z-index: 1000;
+}
+
+.gesture-btn {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.hit-area {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(0, 255, 0, 0.2);
+    border: 2px solid var(--primary-color);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.2s;
+    animation: pulse 2s infinite;
+}
+
+.btn-icon {
+    font-size: 2.5rem;
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.gesture-btn.active .hit-area {
+    background: rgba(0, 255, 0, 0.5);
+    transform: translateX(-50%) scale(1.2);
+    animation: none;
+}
+
+@keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.1); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+.audio-controls {
+    position: fixed;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#volume {
+    width: 200px;
+    height: 10px;
     background: #444;
-    color: white;
+    border-radius: 5px;
+    appearance: none;
 }
 
-button.active {
-    background: #007bff;
+#volume::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
 }
 
-.keyboard {
-    display: flex;
-    justify-content: center;
-    margin: 20px;
+.progress-bar {
+    width: 100%;
+    height: 15px;
+    background: #444;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
 }
 
-.key {
-    width: 60px;
-    height: 200px;
-    border: 1px solid black;
-    margin: 2px;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 10px;
-    border-radius: 0 0 5px 5px;
-    transition: background 0.1s;
+.progress {
+    width: 0%;
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
 }
 
-.key.black {
-    background: black;
-    color: white;
-    height: 120px;
-    width: 40px;
-    margin: 0 -20px;
-    z-index: 1;
+.error-message {
+    color: var(--error-color);
+    margin-top: 1rem;
+    font-size: 0.9rem;
 }
 
-.key.active {
-    background: #007bff;
+.hidden {
+    display: none;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle 1s forwards;
+}
+
+@keyframes particle {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(3); }
 }

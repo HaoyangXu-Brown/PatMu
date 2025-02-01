@@ -2,20 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Music Keyboard Game</title>
+    <title>AR Music Controller</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Music Keyboard Game</h1>
-        <div class="instrument-selector">
-            <button class="active" data-instrument="piano">Piano 🎹</button>
-            <button data-instrument="guitar">Guitar 🎸</button>
-            <button data-instrument="drums">Drums 🥁</button>
+    <!-- Permission Overlay -->
+    <div id="permission-overlay" class="overlay">
+        <div class="permission-box">
+            <h2>🎮 AR Music Experience</h2>
+            <p>Camera access required for gesture controls</p>
+            <button id="request-camera-btn" class="enable-btn">Enable Camera</button>
+            <div class="error-message" id="permission-error"></div>
         </div>
-        <div class="keyboard"></div>
     </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="overlay">
+        <div class="loading-box">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div id="loading-text">Initializing: 0%</div>
+            <button id="retry-loading" class="hidden">Retry Loading</button>
+            <div class="error-message" id="loading-error"></div>
+        </div>
+    </div>
+
+    <!-- Main Interface -->
+    <div class="camera-container">
+        <video class="input_video" autoplay muted playsinline></video>
+        <canvas class="output_canvas"></canvas>
+    </div>
+
+    <!-- Gesture Controls -->
+    <div class="gesture-controls">
+        <div class="gesture-btn" data-instrument="drum">
+            <div class="btn-icon">🥁</div>
+            <div class="hit-area"></div>
+        </div>
+        <div class="gesture-btn" data-instrument="piano">
+            <div class="btn-icon">🎹</div>
+            <div class="hit-area"></div>
+        </div>
+        <div class="gesture-btn" data-instrument="guitar">
+            <div class="btn-icon">🎸</div>
+            <div class="hit-area"></div>
+        </div>
+    </div>
+
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.7">
+        <div id="audio-status">🔊 Volume: 70%</div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
